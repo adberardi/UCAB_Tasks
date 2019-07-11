@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SegundoProyecto</string>
+    <string name="incompletas">Incompletas</string>
+    <string name="finalizadas">Finalizadas</string>
+</resources>
