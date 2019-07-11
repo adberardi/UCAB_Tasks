@@ -69,11 +69,11 @@ public class TaskDbHelper extends SQLiteOpenHelper {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         Task[] tasks = new Task[0];
         try {
-            tasks = new Task[]{new Task("Hacer proyecto de Android", "Lorem ipsum",
+            tasks = new Task[]{new Task("Task 1", "Tarea de prueba",
                     format.parse("2019-01-01 10:00:00"),false),
-                    new Task("Tarea 2", "Lorem ipsum x2",
+                    new Task("Task 2", "Tarea de prueba",
                             format.parse("2019-01-01 10:00:00"),false),
-                    new Task("Tarea 3", "Lorem ipsum x3",
+                    new Task("Task 3", "Tarea de prueba",
                             format.parse("2019-01-01 10:00:00"),false)
             };
         } catch (ParseException e) {
