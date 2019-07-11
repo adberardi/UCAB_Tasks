@@ -2,4 +2,6 @@
     <string name="app_name">SegundoProyecto</string>
     <string name="incompletas">Incompletas</string>
     <string name="finalizadas">Finalizadas</string>
+    <string name="date_picker">datePicker</string>
+    <string name="time_picker">timePicker</string>
 </resources>
