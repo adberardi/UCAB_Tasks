@@ -1,15 +1,16 @@
 package com.example.segundoproyecto;
 
-import android.support.v4.app.DialogFragment;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.support.v4.app.DialogFragment;
 import android.widget.Toast;
 
-public class newTaskActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity {
 
     private EditText taskTitulo ;
     private EditText taskFecha ;
@@ -18,29 +19,40 @@ public class newTaskActivity extends AppCompatActivity {
     private CheckBox taskCompletado ;
     private String id;
 
+    private Cursor mCursor;
     private TaskDbHelper mDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_task);
+        setContentView(R.layout.activity_detail);
 
-        taskTitulo = findViewById(R.id.inputTituloNew);
-        taskFecha = findViewById(R.id.inputFechaNew);
-        taskHora = findViewById(R.id.inputHoraNew);
-        taskDetalle = findViewById(R.id.inputDetailNew);
-        taskCompletado = findViewById(R.id.completadoNew);
+        taskTitulo = findViewById(R.id.inputTitulo);
+        taskFecha = findViewById(R.id.inputFecha);
+        taskHora = findViewById(R.id.inputHora);
+        taskDetalle = findViewById(R.id.inputDetail);
+        taskCompletado = findViewById(R.id.completadoDetail);
 
+        id = getIntent().getStringExtra(TaskContract.TaskEntry._ID);
+        taskTitulo.setText(getIntent().getStringExtra(TaskContract.TaskEntry.TITULO));
+        taskDetalle.setText(getIntent().getStringExtra(TaskContract.TaskEntry.DETALLE));
+        taskCompletado.setChecked(getIntent().getBooleanExtra(TaskContract.TaskEntry.COMPLETADO,true));
+        taskFecha.setText(getIntent().getStringExtra("fecha"));
+        taskHora.setText(getIntent().getStringExtra("hora"));
+        id = getIntent().getStringExtra(TaskContract.TaskEntry._ID);
+        
         mDB = new TaskDbHelper(this);
+
     }
 
+
     public void showDatePickerDialog(View view) {
-        DialogFragment newFragment = new DatePickerFragmentNew();
+        DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(),getString(R.string.date_picker));
     }
 
     public void showTimePickerDialog(View view) {
-        DialogFragment newFragment = new TimePickerFragmentNew();
+        DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getSupportFragmentManager(),
                 getString(R.string.time_picker));
     }
@@ -65,12 +77,13 @@ public class newTaskActivity extends AppCompatActivity {
         taskFecha.setText(dateMessage);
     }
 
-    public void saveDataTask(View view) {
+    public void updateDataTask(View view) {
+
         String fecha= taskFecha.getText().toString();
         String hora= taskHora.getText().toString()+":00";
         Log.d("*** fecha y hora ***", fecha+" "+hora);
-        mDB.saveTask(taskTitulo.getText().toString(),taskDetalle.getText().toString(),fecha+" "+hora,taskCompletado.isChecked());
-        Toast.makeText(this, "Tarea Guardadas Exitosamente", Toast.LENGTH_SHORT).show();
+        mDB.updateTask(Integer.valueOf(id),taskTitulo.getText().toString(),taskDetalle.getText().toString(),fecha+" "+hora,taskCompletado.isChecked());
+        Toast.makeText(this, "Tarea Modificada", Toast.LENGTH_SHORT).show();
         super.onBackPressed();
     }
 
@@ -80,5 +93,5 @@ public class newTaskActivity extends AppCompatActivity {
         String timeMessage = (hour_string + ":" + minute_string);
         taskHora.setText(timeMessage);
     }
-
 }
+
