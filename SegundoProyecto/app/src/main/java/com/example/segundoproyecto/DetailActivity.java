@@ -40,7 +40,7 @@ public class DetailActivity extends AppCompatActivity {
         taskFecha.setText(getIntent().getStringExtra("fecha"));
         taskHora.setText(getIntent().getStringExtra("hora"));
         id = getIntent().getStringExtra(TaskContract.TaskEntry._ID);
-        
+
         mDB = new TaskDbHelper(this);
 
     }
