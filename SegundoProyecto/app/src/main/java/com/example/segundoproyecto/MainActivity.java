@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        System.out.println("jejejejej");
         //Check if the correct item was clicked
         if(estado==R.string.incompletas){
             cursor = mDB.getAlltaskCompleted();
@@ -97,5 +98,9 @@ public class MainActivity extends AppCompatActivity {
     public void addTask(View view) {
         Intent detailIntent = new Intent(this, newTaskActivity.class);
         this.startActivity(detailIntent);
+    }
+
+    public void deleteTask(View view) {
+        System.out.println(mTasksData);
     }
 }
